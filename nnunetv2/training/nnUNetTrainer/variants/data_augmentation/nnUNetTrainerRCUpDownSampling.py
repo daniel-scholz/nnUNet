@@ -11,10 +11,9 @@ from nnunetv2.training.data_augmentation.custom_transforms.random_convolution im
 from nnunetv2.training.nnUNetTrainer.nnUNetTrainer import nnUNetTrainer
 
 
-class nnUNetTrainerRC(nnUNetTrainer):
-
+class nnUNetTrainerRCUpDownSampling(nnUNetTrainer):
     n_modalities: int = 2
-    updown_sampling: bool = False
+    updown_sampling: bool = True
 
     @staticmethod
     def get_training_transforms(
@@ -46,9 +45,8 @@ class nnUNetTrainerRC(nnUNetTrainer):
         rc = RandomConvolutionTransform(
             n_hidden_layers=2,
             k=3,
-            n_modalities=nnUNetTrainerRC.n_modalities,
             non_linearity=False,
-            updown_sampling=__class__.updown_sampling,
+            updown_sampling=nnUNetTrainerRCUpDownSampling.updown_sampling,
         )
         transform = ComposeTransforms(
             [*transform.transforms, RandomTransform(rc, apply_probability=0.5)]
