@@ -46,7 +46,6 @@ class nnUNetTrainerRC(nnUNetTrainer):
         rc = RandomConvolutionTransform(
             n_hidden_layers=2,
             k=3,
-            n_modalities=nnUNetTrainerRC.n_modalities,
             non_linearity=False,
             updown_sampling=__class__.updown_sampling,
         )
